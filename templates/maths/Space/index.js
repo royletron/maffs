@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { useTransition, animated } from "react-spring";
+import arrayShuffle from "utils/arrays/shuffle";
 
 export const Frame = ({ children, ...props }) => {
   return <div className={styles.frame}>{children}</div>;
@@ -164,6 +165,7 @@ export const Select = ({ children, onClick }) => {
 export default function SpaceTheme({
   equation,
   values,
+  correct,
   onSelect,
   showSummary = false,
   summary,
@@ -172,7 +174,7 @@ export default function SpaceTheme({
     from: {
       opacity: 0,
       position: "absolute",
-      transform: "scale(0)",
+      transform: "scale(0.9)",
     },
     enter: [
       {
@@ -193,9 +195,12 @@ export default function SpaceTheme({
           <animated.div key={key} style={props} className={styles.content}>
             <div className={styles.question}>
               <svg viewBox="0 0 60 14">
-                <text x="30" y="12" textAnchor="middle">
-                  {equation}
-                </text>
+                <text
+                  x="30"
+                  y="12"
+                  textAnchor="middle"
+                  dangerouslySetInnerHTML={{ __html: equation }}
+                ></text>
               </svg>
             </div>
             <div className={styles.values}>
